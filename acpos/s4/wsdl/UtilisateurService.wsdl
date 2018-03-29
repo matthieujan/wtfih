@@ -1,0 +1,155 @@
+<definitions name = "UtilisateurService"
+    targetNamespace = "http://www.examples.com/wsdl/UtilisateurService.wsdl"
+    xmlns = "http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap = "http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns = "http://www.examples.com/wsdl/UtilisateurService.wsdl"
+    xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+
+    <types>
+        <xsd:schema targetNamespace="http://www.examples.com/wsdl/UtilisateurService.wsdl">
+            <xsd:complexType name="utilisateurEntry">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="utilisateurEntryArray" final="#all">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:utilisateurEntry" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+
+    <message name = "entryUtilisateur">
+        <part name = "content" type = "tns:utilisateurEntry"/>
+    </message>
+
+    <message name = "entryArrayUtilisateur">
+        <part name = "content" type = "tns:utilisateurEntryArray"/>
+    </message>
+
+    <message name = "ackUtilisateur">
+        <part name = "isOk" type = "xsd:boolean"/>
+    </message>
+
+    <message name = "getAllUtilisateur">
+    </message>
+
+    <message name = "selectByIdUtilisateur">
+        <part name = "id" type = "xsd:string"/>
+    </message>
+
+    <portType name = "Utilisateur_PortType">
+        <operation name = "createUtilisateurOp">
+            <input message = "tns:entryUtilisateur"/>
+            <output message = "tns:ackUtilisateur"/>
+        </operation>
+        <operation name = "getByIdUtilisateurOp">
+            <input message = "tns:selectByIdUtilisateur"/>
+            <output message = "tns:entryUtilisateur"/>
+        </operation>
+        <operation name = "getAllUtilisateurOp">
+            <input message = "tns:getAllUtilisateur"/>
+            <output message = "tns:entryArrayUtilisateur"/>
+        </operation>
+        <operation name = "updateByIdUtilisateurOp">
+            <input message = "tns:selectByIdUtilisateur"/>
+            <output message = "tns:ackUtilisateur"/>
+        </operation>
+        <operation name = "deleteByIdUtilisateurOp">
+            <input message = "tns:selectByIdUtilisateur"/>
+            <output message = "tns:ackUtilisateur"/>
+        </operation>
+    </portType>
+
+    <binding name = "Utilisateur_Binding" type = "tns:Utilisateur_PortType">
+        <soap:binding style = "rpc"
+            transport = "http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name = "createUtilisateurOp">
+            <soap:operation soapAction = "createUtilisateurOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "getByIdCtilisateurOp">
+            <soap:operation soapAction = "getByIdUtilisateurOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "getAllUtilisateurOp">
+            <soap:operation soapAction = "getAllUtilisateurOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "updateByIdUtilisateurOp">
+            <soap:operation soapAction = "updateByIdUtilisateurOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "deleteByIdUtilisateurOp">
+            <soap:operation soapAction = "deleteByIdUtilisateurOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:utilisateurservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name = "Utilisateur_Service">
+        <documentation>WSDL File for UtilisateurService</documentation>
+        <port binding = "tns:Utilisateur_Binding" name = "Utilisateur_Port">
+            <soap:address
+                location = "http://www.examples.com/UtilisateurService/" />
+        </port>
+    </service>
+
+</definitions>

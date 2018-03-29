@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+
+<title>IER</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="description" content="A presentation of JJTree for the compiler course">
+	<meta name="author" content="Jan_Bezancon">
+
+	<title>IER - le vélo plus simple</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!--Add support for earlier versions of Internet Explorer -->
+	<!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+	s
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Intro-->
+			<section>
+                <h1>IER</h1>
+                <h3>Le vélo plus facile</h3>
+                </br>
+                <small>Matthieu Jan - Félix Bezançon</small>
+			</section>
+
+            <section>
+                <section>
+                    <h2>Contexte</h2>
+                    <p>Faciliter l'usage du vélo en ville</p>
+                </section>
+                <section>
+                    <h2>Problématiques</h2>
+                    <ul>
+                        <li>Traffic</li>
+                        <li>Météo</li>
+                        <li>Information</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section>
+                <h2>Conception d'une solution</h2>
+                <p>Axée Utilisateur</p>
+            </section>
+            <section>
+                    <h2>Brainstorming</h2>
+                    <section>
+                        <h3>Support</h3>
+                        <ul>
+                            <li>Smartphone posé sur le guidon</li>
+                            <li>Lunettes connectés</li>
+                            <li>Vélo autonome</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Contenu</h3>
+                        <ul>
+                            <li>Orientation</li>
+                            <li>Environnement</li>
+                            <li>Divertissement</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Interaction</h3>
+                        <ul>
+                            <li>Communication vocale</li>
+                            <li>Commande au guidon</li>
+                            <li>Configuration préalable</li>
+                        </ul>
+                    </section>
+            </section>
+            <section>
+                <h2>La solution</h2>
+                    <section></section>
+                    <section><p>Suspens ...</p></section>
+                    <section>
+                        <ul>
+                            <li>Lunettes connectés</li>
+                            <li>Orientation et Environnement</li>
+                        </ul>
+                    </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Persona</h2>
+                    <ul>
+                        <li>Guillaume</li>
+                        <li>Charles</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Scenario</h2>
+                    <h3>Avec Guillaume</h3>
+                    <p>Guillaume souhaite se rendre à l'école en vélo.</p>
+                </section>
+                <section>
+                    <h2>Scenario</h2>
+                    <h3>Avec Charles</h3>
+                    <p>Charles veut envoyer une carte postale à sa grand-mère.</p>
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>L'UI de la solution</h2>
+                </section>
+                <section>
+                    <h2>Vue principale</h2>
+										<img src="img/principale.png">
+                </section>
+                <section>
+                    <h2>Vision de l'Utilisateur</h2>
+										<img src="img/rue.png">
+                </section>
+								<section>
+									<h2>Menu interface</h2>
+									<img src="img/interface.png" height="400" width="250">
+								</section>
+            </section>
+            <section>
+                <h1>Des questions ?</h1>
+                <h3 class="fragment">... Pliz ?</h3>
+            </section>
+
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [{
+					src: 'plugin/markdown/marked.js'
+				},
+				{
+					src: 'plugin/markdown/markdown.js'
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function() {
+						hljs.initHighlightingOnLoad();
+					}
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>

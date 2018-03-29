@@ -1,0 +1,33 @@
+range P = 0..4
+const M = 4
+const S = 4
+
+
+CARKPARKCONTROL (N=S) = SPACES[S],
+
+SPACES[i:P] = ( when(i>0) arrive->SPACES[i-1]
+                 | when(i<M) depart->SPACES[i+1]
+                 ).
+
+ARRIVALS = (arrive->ARRIVALS).
+DEPARTURES = (depart->DEPARTURES).
+
+property OVERFLOW = (when(S == 0) depart -> FLOW[1] 
+                    |when(S>0) depart ->FLOW[S+1]
+                    | arrive -> FLOW[S-1]),
+    FLOW[i:P] = (when (i == 0) depart -> FLOW[1]
+                |when (i>0) depart -> FLOW[i+1]
+                |arrive -> FLOW[i-1]).
+
+property ENTER = (when(S == M) arrive -> ENT[M-1] 
+                    |when(S<M) depart -> ENT[S+1]
+                    | arrive -> ENT[S-1]),
+    ENT[i:P] = (when (i == M) arrive -> ENT[M-1]
+                |when (i<M) depart -> ENT[i+1]
+                |arrive -> ENT[i-1]).
+
+
+||CARPARK = (ARRIVALS || CARKPARKCONTROL(S) || DEPARTURES || OVERFLOW || ENTER).
+
+progress ARR = {arrive}
+progress DEP = {depart}

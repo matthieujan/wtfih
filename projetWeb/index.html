@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+
+<title>Symfony</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="description" content="Présentation du projet web Info2 Ensibs Symfony">
+	<meta name="author" content="Jan_Bezancon">
+
+	<title>Synfony Project</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!--Add support for earlier versions of Internet Explorer -->
+	<!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+	s
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Intro-->
+			<section>
+                <h1>Projet Jack&Bab</h1>
+                <small>Matthieu Jan - Félix Bezançon -
+                Rémi Freret - Oussama Barhdadi</small>
+			</section>
+
+            <section>
+                <section>
+                <h2>(S)SDLC</h2>
+                <ul>
+                    <li>Contexte</li>
+                    <li>Conception</li>
+                    <li>Implementation</li>
+                    <li>Audit passif</li>
+                    <li>Audit actif</li>
+                </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                <h2>Analyse du problème</h2>
+                <ul>
+                    <li>E-Commerce</li>
+                    <li>Messagerie</li>
+                    <li>Symfony</li>
+                </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                <h2>Conception</h2>
+                <ul>
+                    <li>Définition des activités</li>
+                    <li>Plan "géographique"</li>
+                    <li>Définition des Entités</li>
+                </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                <h2>Implémentation</h2>
+                <ul>
+                    <li>Controler</li>
+                    <li>Doctrine</li>
+                    <li>Twig</li>
+                </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                <h2>Audit passif</h2>
+                <h3>Jack&Noel</h3>
+                <ul>
+                    <li>Commentaire</li>
+                    <li>Documentation</li>
+                    <li>Code louche ?</li>
+                </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                <h2>Audit actif</h2>
+                <h3>Retour de Jack&Bab</h3>
+                <ul>
+                    <li>Form exploit</li>
+                    <li>Brutforce</li>
+                    <li>Doctrine II : La vengeance</li>
+                </ul>
+                </section>
+            </section>
+            <section>
+                <section>
+                <h2>Conclusion</h2>
+                <ul>
+                    <li>(S)SDLC ?</li>
+                    <li>Symfony</li>
+                    <li>OWASP</li>
+                </ul>
+                </section>
+            </section>
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [{
+					src: 'plugin/markdown/marked.js'
+				},
+				{
+					src: 'plugin/markdown/markdown.js'
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function() {
+						hljs.initHighlightingOnLoad();
+					}
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>

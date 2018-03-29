@@ -1,0 +1,156 @@
+<definitions name = "CatalogueService"
+    targetNamespace = "http://www.examples.com/wsdl/CatalogueService.wsdl"
+    xmlns = "http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap = "http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns = "http://www.examples.com/wsdl/CatalogueService.wsdl"
+    xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+
+    <types>
+        <xsd:schema targetNamespace="http://www.examples.com/wsdl/CatalogueService.wsdl">
+            <xsd:complexType name="catalogueEntry">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="price" type="xsd:decimal" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="catalogueEntryArray" final="#all">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:catalogueEntry" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+
+    <message name = "entryCatalogue">
+        <part name = "content" type = "tns:catalogueEntry"/>
+    </message>
+
+    <message name = "entryArrayCatalogue">
+        <part name = "content" type = "tns:catalogueEntryArray"/>
+    </message>
+
+    <message name = "ackCatalogue">
+        <part name = "isOk" type = "xsd:boolean"/>
+    </message>
+
+    <message name = "getAllCatalogue">
+    </message>
+
+    <message name = "selectByIdCatalogue">
+        <part name = "id" type = "xsd:string"/>
+    </message>
+
+    <portType name = "Catalogue_PortType">
+        <operation name = "createCatalogueOp">
+            <input message = "tns:entryCatalogue"/>
+            <output message = "tns:ackCatalogue"/>
+        </operation>
+        <operation name = "getByIdCatalogueOp">
+            <input message = "tns:selectByIdCatalogue"/>
+            <output message = "tns:entryCatalogue"/>
+        </operation>
+        <operation name = "getAllCatalogueOp">
+            <input message = "tns:getAllCatalogue"/>
+            <output message = "tns:entryArrayCatalogue"/>
+        </operation>
+        <operation name = "updateByIdCatalogueOp">
+            <input message = "tns:selectByIdCatalogue"/>
+            <output message = "tns:ackCatalogue"/>
+        </operation>
+        <operation name = "deleteByIdCatalogueOp">
+            <input message = "tns:selectByIdCatalogue"/>
+            <output message = "tns:ackCatalogue"/>
+        </operation>
+    </portType>
+
+    <binding name = "Catalogue_Binding" type = "tns:Catalogue_PortType">
+        <soap:binding style = "rpc"
+            transport = "http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name = "createCatalogueOp">
+            <soap:operation soapAction = "createCatalogueOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "getByIdCatalogueOp">
+            <soap:operation soapAction = "getByIdCatalogueOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "getAllCatalogueOp">
+            <soap:operation soapAction = "getAllCatalogueOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "updateByIdCatalogueOp">
+            <soap:operation soapAction = "updateByIdCatalogueOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "deleteByIdCatalogueOp">
+            <soap:operation soapAction = "deleteByIdCatalogueOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:catalogueservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name = "Catalogue_Service">
+        <documentation>WSDL File for CatalogueService</documentation>
+        <port binding = "tns:Catalogue_Binding" name = "Catalogue_Port">
+            <soap:address
+                location = "http://www.examples.com/CatalogueService/" />
+        </port>
+    </service>
+
+</definitions>

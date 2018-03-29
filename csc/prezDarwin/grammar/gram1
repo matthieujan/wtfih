@@ -1,0 +1,32 @@
+CHAR := [a-z]|[A-Z]
+DIGIT := [0-9]
+NUMBER := (DIGIT)+
+BOOL := true | false
+
+IVARIABLE := "i_" (CHAR | NUMBER)+
+BVARIABLE := "b_" (CHAR | NUMBER)+
+SVARIABLE := "s_" (CHAR | NUMBER)+
+
+PROGRAM := algo IDENTIFIER DECLARATION* begin STATEMENT+
+    IDENTIFIER := CHAR (CHAR | NUMBER)*
+    DECLARATION := VARIABLE
+      VARIABLE := BVARIABLE | IVARIABLE | SVARIABLE
+    STATEMENT := (AFFECTATION | IFBLOCK | LOOPBLOCK)
+      AFFECTATION := into VARIABLE affect OPERATION
+        OPERATION := EXPLOGIC | EXPARITHMETIC | EXPSTRING | VARIABLE
+        EXPLOGIC := EXPET (|| EXPET)*
+            EXPET := TERMLOG (&& TERMLOG)*
+            TERMLOG := ELEMENTLOG | !ELEMENTLOG
+            ELEMENTLOG := VALUELOG | EXPARITHMETIC ( > | < | == ) EXPARITHMETIC
+            VALUELOG := BOOL | (EXPLOGIC) | VARIABLE
+            EXPARITHMETIC := TERM ((+|-) TERM)*
+                TERM := UNARY ((*|/|%) UNARY)*
+                UNARY := (-)? NUMBER
+                NUMBER := VARIABLE | (EXPARITHMETIC)| NUMBER
+            EXPSTRING := " CHAR+ "
+      IFBLOCK := if OPERATION THENBLOCK (ELSEBLOCK)? endif
+        THENBLOCK := then (STATEMENT)+ endthen
+        ELSEBLOCK := else (STATEMENT)+ endelse
+      LOOPBLOCK := (FORBLOCK | WHILEBLOCK)
+        FORBLOCK := for OPERATION times do (STATEMENT)+ endfor
+        WHILEBLOCK := while OPERATION do (STATEMENT)+ endwhile

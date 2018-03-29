@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+
+<title>Specification et conception des systèmes concurrents</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="description" content="A presentation of JJTree for the compiler course">
+	<meta name="author" content="Jan_Bezancon">
+
+	<title>Specification et conception des systèmes concurrents</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!--Add support for earlier versions of Internet Explorer -->
+	<!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+	s
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Intro-->
+			<section>
+        <h1>TP1</h1>
+        <h3>Spécification et conception des systèmes concurrents</h3>
+        </br>
+      	<small>Matthieu Jan - Félix Bezançon</small>
+			</section>
+      <section>
+				<h3>Sujet :</h3>
+				<ul>
+					<li>Concevoir un système concurrent pour le contrôle et la commande d'ascenseur d'un immeuble</li>
+					<li>Utilisation du langage Darwin</li>
+					<li>Utilisation du logiciel Ltsa</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Présentation de notre solution</h3>
+				<ul>
+					<li>Couverture par message</li>
+					<li>Génération d'erreur en cas de problèmes</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Exemple d'interface :</h3>
+				<pre><code>//Interface de communication avec le centre de controle
+//var:from indique la source (1..3 pour floor, 4 pour la cage)
+//var:say indique le message
+// (Pour floor : 1 = surcourse bas / 2 = stop / 3 = surcourse haut / 4 = call)
+// (Pour la cage : 1..3 = call / 4 = capteur cage -> ouvrir la porte)
+interface SignalReceiveIt(int from,int say){
+    handle[from][say];
+}
+</code></pre>
+			</section>
+			<section>
+				<h3>Exemple de component :</h3>
+				<pre><code>//Description de la cage d'ascenseur
+component ELEVATORCAGE (int NBFLOOR){
+    require
+        cc:SignalReceiveIt(1,2);
+    provide
+        door:DoorControlIt;
+
+        /%
+            ELEVATORCAGE(NBFLOOR = 1) = EC[NBFLOOR],
+            EC[NBFLOOR] = (
+                cc.handle[NBFLOOR+1][1..NBFLOOR+1] -> EC[NBFLOOR]
+                | door.open -> EC[NBFLOOR]
+                | door.close -> EC[NBFLOOR]
+            )+{door.DoorControlIt,cc.SignalReceiveIt}.
+
+        %/
+}
+</code></pre>
+			</section>
+			<section>
+				<h3>ControlCenter :</h3>
+				<pre><code>//Lorqu'un bouton est appuyé ...
+            cc.handle[i:Floors][Call] ->
+            (when(from == to & from == i) door.open -> CTRL[from][to]
+            |when(from == to & from > i) door.close -> motor.descent -> CTRL[from][i]
+            |when(from == to & from < i) door.close -> motor.ascent -> CTRL[from][i]
+            |when(from != to) ignore -> CTRL[from][to]
+            )
+</code></pre>
+			</section>
+			<section>
+				<section>
+					<h3>Demonstration</h3>
+				</section>
+				<section>
+					<p>Etat inital</p>
+					<img src="img/step1.png">
+				</section>
+					<section>
+						<p>Appel de l'ascenseur au premier étage</p>
+						<img src="img/step2.png">
+					</section>
+					<section>
+						<p>Ouverture de la porte</p>
+						<img src="img/step3.png">
+					</section>
+					<section>
+						<p>L'utilisateur veut aller au deuxième étage</p>
+						<img src="img/step4.png">
+					</section>
+					<section>
+						<p>La porte se ferme</p>
+						<img src="img/step5.png">
+					</section>
+					<section>
+						<p>Le moteur démarre, l'ascenseur monte</p>
+						<img src="img/step6.png">
+					</section>
+					<section>
+						<p>La capteur haut du premier étage detecte l'ascenseur</p>
+						<img src="img/step7.png">
+					</section>
+					<section>
+						<p>On l'ignore</p>
+						<img src="img/step8.png">
+					</section>
+					<section>
+						<p>Le capteur bas de l'étage 2 detecte l'ascenseur</p>
+						<img src="img/step9.png">
+					</section>
+					<section>
+						<p>L'ascenseur ralentit</p>
+						<img src="img/step10.png">
+					</section>
+					<section>
+						<p>L'ascenseur arrive au capteur stop de l'étage 2</p>
+						<img src="img/step11.png">
+					</section>
+					<section>
+						<p>Le moteur s'arrète.</p>
+						<img src="img/step12.png">
+					</section>
+					<section>
+						<p>La porte de l'ascenseur s'ouvre</p>
+						<img src="img/step13.png">
+					</section>
+					<section>
+						<p>Si on active un capteur sans raison apparente, le système génére un erreur qui doit être traité par la maitenance</p>
+						<img src="img/step14.png">
+					</section>
+				</section>
+			</div>
+		</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [{
+					src: 'plugin/markdown/marked.js'
+				},
+				{
+					src: 'plugin/markdown/markdown.js'
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function() {
+						hljs.initHighlightingOnLoad();
+					}
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>

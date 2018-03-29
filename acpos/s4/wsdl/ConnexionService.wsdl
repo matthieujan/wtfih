@@ -1,0 +1,51 @@
+<definitions name = "ConnexionService"
+    targetNamespace = "http://www.examples.com/wsdl/ConnexionService.wsdl"
+    xmlns = "http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap = "http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns = "http://www.examples.com/wsdl/ConnexionService.wsdl"
+    xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+
+    <message name = "entryConnexion">
+        <part name = "request" type = "xsd:string"/>
+    </message>
+
+    <message name = "responseConnexion">
+      <part name = "response" type = "xsd:string"/>
+    </message>
+
+    <portType name = "Connexion_PortType">
+        <operation name = "createConnexionOp">
+            <input message = "tns:entryConnexion"/>
+            <output message = "tns:responseConnexion"/>
+        </operation>
+    </portType>
+
+    <binding name = "Connexion_Binding" type = "tns:Connexion_PortType">
+        <soap:binding style = "rpc"
+            transport = "http://schemas.xmlsoap.org/soap/http"/>
+        <operation name = "createConnxionOp">
+            <soap:operation soapAction = "createConnexionOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:connexionservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:connexionservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name = "Connexion_Service">
+        <documentation>WSDL File for ConnexionService</documentation>
+        <port binding = "tns:Connexion_Binding" name = "Connexion_Port">
+            <soap:address
+                location = "http://www.examples.com/ConnexionService/" />
+        </port>
+    </service>
+
+</definitions>

@@ -1,0 +1,72 @@
+interface ControlCounterIf {
+    inc;
+    dec;
+}
+interface BarrierIf {
+    open;
+    error;
+    close;
+}
+
+component ENTRY {
+    require
+        ctrl:ControlCounterIf;
+    provide
+        entryBarrier:BarrierIf;
+    /%
+        ENTRY =
+        (ctrl.inc ->
+            (entryBarrier.open -> entryBarrier.close -> ENTRY
+            | entryBarrier.error -> ENTRY)
+        )+{ctrl.ControlCounterIf,entryBarrier.BarrierIf}.
+    %/
+}
+
+component EXIT {
+    require
+        ctrl:ControlCounterIf;
+    provide
+        exitBarrier:BarrierIf;
+    /%
+        EXIT =
+        (ctrl.dec -> 
+            (exitBarrier.open -> exitBarrier.close -> EXIT
+            | exitBarrier.error -> EXIT)
+        )+{ctrl.ControlCounterIf,exitBarrier.BarrierIf}.
+    %/
+}
+
+component CONTROL(int A) {
+    provide
+        ctrlEntry:ControlCounterIf;
+        ctrlExit:ControlCounterIf;
+    require
+        entryBarrier:BarrierIf;
+        exitBarrier:BarrierIf;
+    /%
+        const Max = 4
+        CONTROL(A=0) = CONTROL[A],
+        CONTROL[a:0..Max] =
+        (ctrlEntry.inc ->
+            (when(a<Max) entryBarrier.open -> entryBarrier.close -> CONTROL[a+1]
+            |when(a == Max) entryBarrier.error -> CONTROL[a]
+            )
+        |ctrlExit.dec ->
+            (when(a>0) exitBarrier.open -> exitBarrier.close -> CONTROL[a-1]
+            |when(a==0) exitBarrier.error -> CONTROL[a]
+            )
+        )+{ctrlEntry.ControlCounterIf,ctrlExit,entryBarrier.BarrierIf,exitBarrier.BarrierIf}.
+    %/
+}
+
+component SYS {
+    inst
+        exit:EXIT;
+        entry:ENTRY;
+        ctrl:CONTROL(2);
+    bind
+        exit.exitBarrier -- ctrl.exitBarrier;
+        entry.entryBarrier -- ctrl.entryBarrier;
+        ctrl.ctrlExit -- exit.ctrl;
+        ctrl.ctrlEntry -- entry.ctrl;
+}

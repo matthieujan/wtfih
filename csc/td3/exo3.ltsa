@@ -1,0 +1,44 @@
+set Actions = {acquireRead,releaseRead,acquireWrite,releaseWrite,askRead,askWrite}
+READER = (askRead ->acquireRead -> examine -> releaseRead -> READER)@Actions.
+WRITER = (askWrite -> acquireWrite -> modify -> releaseWrite -> WRITER)@Actions.
+
+const False = 0
+const True = 1
+range Bool = False..True
+const Nread = 2
+const Nwrite = 2
+range Rread = 0..Nread
+range Rwrite = 0..Nwrite
+
+BD_LOCK = BD[0][False], BD[readers:Rread][writing:Bool] =
+(
+    when(writing == False & readers < Nread) acquireRead -> BD[readers+1][writing]
+    |when(writing == False & readers > 0) releaseRead -> BD[readers-1][writing]
+    |when(writing == False & readers == 0) acquireWrite -> BD[readers][True]
+    |when(writing == True) releaseWrite -> BD[readers][False]
+)@Actions.
+
+property SAFE_RW = (acquireWrite -> W| acquireRead -> R[1] ),
+W = (releaseWrite -> SAFE_RW),
+R[i:Rread] = (when (i==1) releaseRead -> SAFE_RW
+             |when (i<Nread) acquireRead -> R[i+1]
+             |when (i>1) releaseRead -> R[i-1]).
+
+ORDER = Or[False][0][0], Or[lastRead:Bool][nbReadAsk:Rread][nbWriteAsk:Rwrite] =
+(
+    when(nbWriteAsk<Nwrite) askWrite -> Or[lastRead][nbReadAsk][nbWriteAsk+1]
+   |when(nbReadAsk<Nread) askRead -> Or[lastRead][nbReadAsk+1][nbWriteAsk]
+   |when(nbReadAsk == 0 & nbWriteAsk >0) acquireWrite -> Or[False][0][nbWriteAsk-1]
+   |when(nbReadAsk > 0 & nbWriteAsk == 0) acquireRead -> Or[True][nbReadAsk-1][0]
+   |when(nbReadAsk > 0 & nbWriteAsk > 0 & lastRead == True) acquireWrite -> Or[False][nbReadAsk][nbWriteAsk-1]
+   |when(nbReadAsk > 0 & nbWriteAsk > 0 & lastRead == False) acquireRead -> Or[True][nbReadAsk-1][nbWriteAsk]
+).
+
+||READWRITELOCK = (BD_LOCK || SAFE_RW || ORDER).
+||READERS_WRITERS = (rob:READER || regis:READER || will:WRITER || woot:WRITER || READWRITELOCK)@Actions.
+||READERS_WRITERS_LOADED = (READERS_WRITERS) << {acquireRead,acquireWrite}.
+
+progress ACWRITE = {acquireWrite}
+progress ACREAD = {acquireRead}
+progress RLWRITE = {releaseWrite}
+progress RLREAD = {releaseRead}

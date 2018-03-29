@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.10.0">
+  <bpmn:collaboration id="Collaboration_0bktliu">
+    <bpmn:participant id="Participant_06cg2ce" name="Boutiques" processRef="Process_1" />
+    <bpmn:participant id="Participant_1sl63b9" name="Centrale" processRef="Process_0lxipfm" />
+    <bpmn:participant id="Participant_1m5126r" name="Prestataires/Fournisseurs" processRef="Process_01uy6ib" />
+    <bpmn:participant id="Participant_00hgrv0" processRef="Process_0f6jvuo" />
+    <bpmn:messageFlow id="MessageFlow_0amz14c" name="Consulte" sourceRef="Task_00vuk5m" targetRef="Task_06no1rn" />
+    <bpmn:messageFlow id="MessageFlow_0pdbzfd" name="Commande" sourceRef="Task_00vuk5m" targetRef="Task_06no1rn" />
+    <bpmn:messageFlow id="MessageFlow_0o6s6wr" name="Consulte" sourceRef="Task_00vuk5m" targetRef="Task_042dkyd" />
+    <bpmn:messageFlow id="MessageFlow_0s5964p" name="Enregistre les achats" sourceRef="Task_00vuk5m" targetRef="Task_042dkyd" />
+    <bpmn:messageFlow id="MessageFlow_1fw6r0l" name="Echange" sourceRef="Task_06no1rn" targetRef="Task_1qcklh5" />
+    <bpmn:messageFlow id="MessageFlow_1cjl2jy" name="Echange" sourceRef="Task_1qcklh5" targetRef="Participant_1m5126r" />
+    <bpmn:messageFlow id="MessageFlow_192g5a3" sourceRef="Participant_1m5126r" targetRef="Task_1qcklh5" />
+    <bpmn:messageFlow id="MessageFlow_1jsjji6" sourceRef="Task_1qcklh5" targetRef="Task_06no1rn" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:task id="Task_00vuk5m" name="EasyFund" />
+  </bpmn:process>
+  <bpmn:process id="Process_0lxipfm" isExecutable="false">
+    <bpmn:dataStoreReference id="DataStoreReference_0wgjpty" name="Stock centrale" />
+    <bpmn:task id="Task_06no1rn" name="Stock">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1rxg2rz">
+        <bpmn:targetRef>DataStoreReference_0wgjpty</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:dataStoreReference id="DataStoreReference_176gk46" name="CRM" />
+    <bpmn:task id="Task_042dkyd" name="CRM">
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_10kmgus">
+        <bpmn:targetRef>DataStoreReference_176gk46</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmn:process id="Process_01uy6ib" isExecutable="false" />
+  <bpmn:process id="Process_0f6jvuo" isExecutable="false">
+    <bpmn:task id="Task_1qcklh5" name="ESB" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0bktliu">
+      <bpmndi:BPMNShape id="Participant_06cg2ce_di" bpmnElement="Participant_06cg2ce">
+        <dc:Bounds x="195" y="54" width="300" height="251" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_1sl63b9_di" bpmnElement="Participant_1sl63b9">
+        <dc:Bounds x="195" y="325" width="329" height="232" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_00vuk5m_di" bpmnElement="Task_00vuk5m">
+        <dc:Bounds x="253" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_06no1rn_di" bpmnElement="Task_06no1rn">
+        <dc:Bounds x="404" y="344" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0wgjpty_di" bpmnElement="DataStoreReference_0wgjpty">
+        <dc:Bounds x="429" y="463" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="418" y="517" width="72" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="MessageFlow_0amz14c_di" bpmnElement="MessageFlow_0amz14c">
+        <di:waypoint xsi:type="dc:Point" x="353" y="146" />
+        <di:waypoint xsi:type="dc:Point" x="429" y="146" />
+        <di:waypoint xsi:type="dc:Point" x="429" y="344" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="388" y="184.10891089108912" width="46" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_0pdbzfd_di" bpmnElement="MessageFlow_0pdbzfd">
+        <di:waypoint xsi:type="dc:Point" x="353" y="127" />
+        <di:waypoint xsi:type="dc:Point" x="468" y="127" />
+        <di:waypoint xsi:type="dc:Point" x="468" y="342" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="411.21487603305786" y="111" width="59" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1rxg2rz_di" bpmnElement="DataOutputAssociation_1rxg2rz">
+        <di:waypoint xsi:type="dc:Point" x="454" y="424" />
+        <di:waypoint xsi:type="dc:Point" x="454" y="463" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_1m5126r_di" bpmnElement="Participant_1m5126r">
+        <dc:Bounds x="915" y="325" width="300" height="233" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_176gk46_di" bpmnElement="DataStoreReference_176gk46">
+        <dc:Bounds x="257.1746506986028" y="462.82834331337324" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="269" y="517" width="27" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_042dkyd_di" bpmnElement="Task_042dkyd">
+        <dc:Bounds x="242.17465069860282" y="344" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_10kmgus_di" bpmnElement="DataOutputAssociation_10kmgus">
+        <di:waypoint xsi:type="dc:Point" x="283" y="424" />
+        <di:waypoint xsi:type="dc:Point" x="283" y="461" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_0o6s6wr_di" bpmnElement="MessageFlow_0o6s6wr">
+        <di:waypoint xsi:type="dc:Point" x="267" y="158" />
+        <di:waypoint xsi:type="dc:Point" x="267" y="344" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="224.3824267078673" y="245.82627048955646" width="46" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_0s5964p_di" bpmnElement="MessageFlow_0s5964p">
+        <di:waypoint xsi:type="dc:Point" x="303" y="157" />
+        <di:waypoint xsi:type="dc:Point" x="304" y="344" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="313.64086145656256" y="236.98993025860898" width="70" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Participant_00hgrv0_di" bpmnElement="Participant_00hgrv0">
+        <dc:Bounds x="552" y="325" width="301" height="233" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1qcklh5_di" bpmnElement="Task_1qcklh5">
+        <dc:Bounds x="660.937125748503" y="350.7145708582834" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="MessageFlow_1fw6r0l_di" bpmnElement="MessageFlow_1fw6r0l">
+        <di:waypoint xsi:type="dc:Point" x="504" y="390" />
+        <di:waypoint xsi:type="dc:Point" x="661" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="575.7262569832402" y="365" width="46" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_1cjl2jy_di" bpmnElement="MessageFlow_1cjl2jy">
+        <di:waypoint xsi:type="dc:Point" x="761" y="389" />
+        <di:waypoint xsi:type="dc:Point" x="915" y="389" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="783.047619047619" y="366" width="46" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_192g5a3_di" bpmnElement="MessageFlow_192g5a3">
+        <di:waypoint xsi:type="dc:Point" x="915" y="413" />
+        <di:waypoint xsi:type="dc:Point" x="761" y="413" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="838" y="392" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_1jsjji6_di" bpmnElement="MessageFlow_1jsjji6">
+        <di:waypoint xsi:type="dc:Point" x="661" y="410" />
+        <di:waypoint xsi:type="dc:Point" x="504" y="410" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="582.5" y="389" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

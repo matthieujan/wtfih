@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+
+<title>Services</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="description" content="A presentation of JJTree for the compiler course">
+	<meta name="author" content="Jan_Bezancon">
+
+	<title>Processus orientés services</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!--Add support for earlier versions of Internet Explorer -->
+	<!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+	s
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Intro-->
+			<section>
+                <h1>Dress'Class</h1>
+                <h3>Processus orientés services</h3>
+                </br>
+                <small>Matthieu Jan - Félix Bezançon</small>
+			</section>
+
+            <section
+                    <h2>Existant</h2>
+										<img src="img/centrale.png" >
+
+            </section>
+
+            <section>
+                    <h2>Identification des problèmes</h2>
+                    <section>
+                        <h3>Synchronisation des flux</h3>
+                        <ul>
+                            <li>Pas de synchronisation</li>
+                            <li>Pas d'acquitement</li>
+                        </ul>
+                        <p>Messages perdus</p>
+                    </section>
+                    <section>
+                        <h3>Synchronisation des vues</h3>
+                        <ul>
+                            <li>Mauvaise synchronisation</li>
+                        </ul>
+                        <p>Informations erronées d'une application à l'autre</p>
+                    </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Processus Métier</h2>
+										<img src="img/metier.png"height="400"width="700">
+                </section>
+                <section>
+                    <h3>Mise en oeuvre du site web</h3>
+										<img src="img/site.png">
+                </section>
+            </section>
+            <section>
+                <section>
+                    <h2>Objets métiers</h2>
+                    <ul>
+                        <li>Reference (Produit/Client/Geographique)</li>
+                        <li>Produit</li>
+                        <li>Commande</li>
+                        <li>Fid Client</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Identification des services</h2>
+                        <ul>
+                            <li>Inscription / Connexion / Utilisateur</li>
+                            <li>Catalogue / Inventaire / Commande</li>
+                        </ul>
+                </section>
+            </section>
+            <section>
+                <h1>Des questions ?</h1>
+            </section>
+
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			dependencies: [{
+					src: 'plugin/markdown/marked.js'
+				},
+				{
+					src: 'plugin/markdown/markdown.js'
+				},
+				{
+					src: 'plugin/notes/notes.js',
+					async: true
+				},
+				{
+					src: 'plugin/highlight/highlight.js',
+					async: true,
+					callback: function() {
+						hljs.initHighlightingOnLoad();
+					}
+				}
+			]
+		});
+	</script>
+</body>
+
+</html>

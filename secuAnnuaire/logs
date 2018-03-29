@@ -1,0 +1,38 @@
+[+] Getting domain group memberships:
+Group 'Domain Admins' (RID: 512) has member: GALACTIC\Administrator
+Group 'Domain Admins' (RID: 512) has member: GALACTIC\gr-admins-serveurs
+Group 'Domain Admins' (RID: 512) has member: GALACTIC\e.palpatine
+Group 'Domain Computers' (RID: 515) has member: GALACTIC\DESKTOP-L0SK7KO$
+Group 'Domain Computers' (RID: 515) has member: GALACTIC\PC-VADOR$
+Group 'Schema Admins' (RID: 518) has member: GALACTIC\Administrator
+Group 'Domain Guests' (RID: 514) has member: GALACTIC\Guest
+Group 'Enterprise Admins' (RID: 519) has member: GALACTIC\Administrator
+Group 'gr-admins-serveurs' (RID: 1104) has member: GALACTIC\e.palpatine
+Group 'gr-admins-serveurs' (RID: 1104) has member: GALACTIC\a.thrawn
+Group 'gr-admins-serveurs' (RID: 1104) has member: GALACTIC\d.revan
+Group 'gr-helpdesk' (RID: 1105) has member: GALACTIC\d.nihilus
+Group 'gr-helpdesk' (RID: 1105) has member: GALACTIC\d.sion
+Group 'gr-helpdesk' (RID: 1105) has member: GALACTIC\d.traya
+Group 'Domain Users' (RID: 513) has member: GALACTIC\Administrator
+Group 'Domain Users' (RID: 513) has member: GALACTIC\krbtgt
+Group 'Domain Users' (RID: 513) has member: GALACTIC\e.palpatine
+Group 'Domain Users' (RID: 513) has member: GALACTIC\a.thrawn
+Group 'Domain Users' (RID: 513) has member: GALACTIC\d.revan
+Group 'Domain Users' (RID: 513) has member: GALACTIC\d.nihilus
+Group 'Domain Users' (RID: 513) has member: GALACTIC\d.sion
+Group 'Domain Users' (RID: 513) has member: GALACTIC\d.traya
+Group 'Domain Users' (RID: 513) has member: GALACTIC\d.vador
+Group 'Domain Users' (RID: 513) has member: GALACTIC\a.skywalker
+Group 'Domain Users' (RID: 513) has member: GALACTIC\g.tarkin
+Group 'Domain Users' (RID: 513) has member: GALACTIC\testad
+Group 'Domain Users' (RID: 513) has member: GALACTIC\iis_admin
+Group 'Domain Users' (RID: 513) has member: GALACTIC\m.surik
+Group 'Domain Users' (RID: 513) has member: GALACTIC\k.ren
+Group 'Group Policy Creator Owners' (RID: 520) has member: GALACTIC\Administrator
+Group 'gr-users' (RID: 1106) has member: GALACTIC\d.vador
+Group 'gr-users' (RID: 1106) has member: GALACTIC\a.skywalker
+Group 'gr-users' (RID: 1106) has member: GALACTIC\g.tarkin
+Group 'gr-users' (RID: 1106) has member: GALACTIC\testad
+Group 'gr-users' (RID: 1106) has member: GALACTIC\m.surik
+Group 'gr-users' (RID: 1106) has member: GALACTIC\k.ren
+Group 'Domain Controllers' (RID: 516) has member: GALACTIC\AD$

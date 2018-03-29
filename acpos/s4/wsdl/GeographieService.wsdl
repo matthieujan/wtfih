@@ -1,0 +1,156 @@
+<definitions name = "GeographieService"
+    targetNamespace = "http://www.examples.com/wsdl/GeographieService.wsdl"
+    xmlns = "http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap = "http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns = "http://www.examples.com/wsdl/GeographieService.wsdl"
+    xmlns:xsd = "http://www.w3.org/2001/XMLSchema">
+
+    <types>
+        <xsd:schema targetNamespace="http://www.examples.com/wsdl/GeographieService.wsdl">
+            <xsd:complexType name="geographieEntry">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="address" type="xsd:string" minOccurs="0"/>
+                    <xsd:element name="statut" type="xsd:string" minOccurs="0"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="geographieEntryArray" final="#all">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:geographieEntry" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+
+    <message name = "entryGeographie">
+        <part name = "content" type = "tns:geographieEntry"/>
+    </message>
+
+    <message name = "entryArrayGeographie">
+        <part name = "content" type = "tns:geographieEntryArray"/>
+    </message>
+
+    <message name = "ackGeographie">
+        <part name = "isOk" type = "xsd:boolean"/>
+    </message>
+
+    <message name = "getAllGeographie">
+    </message>
+
+    <message name = "selectByIdGeographie">
+        <part name = "id" type = "xsd:string"/>
+    </message>
+
+    <portType name = "Geographie_PortType">
+        <operation name = "createGeographieOp">
+            <input message = "tns:entryGeographie"/>
+            <output message = "tns:ackGeographie"/>
+        </operation>
+        <operation name = "getByIdGeographieOp">
+            <input message = "tns:selectByIdGeographie"/>
+            <output message = "tns:entryGeographie"/>
+        </operation>
+        <operation name = "getAllGeographieOp">
+            <input message = "tns:getAllGeographie"/>
+            <output message = "tns:entryArrayGeographie"/>
+        </operation>
+        <operation name = "updateByIdGeographieOp">
+            <input message = "tns:selectByIdGeographie"/>
+            <output message = "tns:ackGeographie"/>
+        </operation>
+        <operation name = "deleteByIdGeographieOp">
+            <input message = "tns:selectByIdGeographie"/>
+            <output message = "tns:ackGeographie"/>
+        </operation>
+    </portType>
+
+    <binding name = "Geographie_Binding" type = "tns:Geographie_PortType">
+        <soap:binding style = "rpc"
+            transport = "http://schemas.xmlsoap.org/soap/http"/>
+
+        <operation name = "createGeographieOp">
+            <soap:operation soapAction = "createGeographieOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "getByIdGeographieOp">
+            <soap:operation soapAction = "getByIdGeographieOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "getAllGeographieOp">
+            <soap:operation soapAction = "getAllGeographieOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "updateByIdGeographieOp">
+            <soap:operation soapAction = "updateByIdGeographieOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+        <operation name = "deleteByIdGeographieOp">
+            <soap:operation soapAction = "deleteByIdGeographieOp"/>
+            <input>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </input>
+            <output>
+                <soap:body
+                   encodingStyle = "http://schemas.xmlsoap.org/soap/encoding/"
+                   namespace = "urn:examples:geographieservice"
+                   use = "encoded"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name = "Geographie_Service">
+        <documentation>WSDL File for GeographieService</documentation>
+        <port binding = "tns:Geographie_Binding" name = "Geographie_Port">
+            <soap:address
+                location = "http://www.examples.com/GeographieService/" />
+        </port>
+    </service>
+
+</definitions>

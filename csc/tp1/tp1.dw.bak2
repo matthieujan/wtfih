@@ -1,0 +1,140 @@
+//Interface de controle du moteur
+interface MotorControlIt{
+    ascent; //Monter
+    stop; //Arreter
+    descent; //Descendre
+}
+
+//Description du composant moteur
+component MOTOR {
+    provide
+        motor:MotorControlIt; //Fourni une interface de controle du moteur
+        /%
+            //Processus simple obligeant le moteur à s'arrêter avant de changer de direction
+            MOTOR = (
+                motor.ascent -> motor.stop -> MOTOR
+               |motor.descent -> motor.stop -> MOTOR
+            ).
+        %/
+}
+
+//Interface de controle de la porte
+interface DoorControlIt{
+    open; //Ouvrir
+    close; //Fermer
+}
+
+component DOOR{
+    provide
+        door:DoorControlIt;
+        /%
+            DOOR= (
+                open -> DOOR
+               |close -> DOOR 
+            ).
+        %/
+}
+
+//Interface d'emission d'evenement en provenance de la cage d'ascenseur
+interface CageEventIt(int etage){
+    goto[etage]; //Aller à var:etage
+    doorBlockedEvent; //La porte est bloqué
+}
+
+//Interface d'emission d'evenement en provenance d'un bouton
+interface ButtonIt{
+    bip;
+}
+
+component BUTTON{
+    provide
+        button:ButtonIt;
+    /%
+        BUTTON = (bip -> BUTTON).
+    %/
+}
+
+//Interface d'emission d'un message en provenance d'un capteur
+interface CaptorIt{
+    on;
+    off;
+}
+
+component CAPTOR{
+    provide
+        captor:CaptorIt;
+
+        /%
+            CAPTOR= (
+                on -> off -> CAPTOR
+            ).
+        %/
+}
+
+//Inteface d'emission d'evenement en provenance d'un etage
+interface FloorEventIt{
+    captorHautOn; //Allumage du capteur de surcourse haut
+    captorHautOff; //Extinction du capteur de surcourse haut
+    captorBasOn; //Allumage du capteur de surcourse bas
+    captorBasOff; //Extinction du capteur de surcourse bas
+    captorStopOn; //Allumage du capteur d'arret
+    captorStopOff; //Extinction du capteur d'arret
+    callTo; //Appel vers cet etage
+}
+
+component FLOOR{
+    require
+        ch:CaptorIt;
+        cb:CaptorIt;
+        st:CaptorIt;
+        bt:ButtonIt;
+    provide
+        floor:FloorEventIt;
+
+    /%
+        FLOORCAPTORS = (
+            cb.on -> st.on -> cb.off -> FLOOR //Arrivé depuis bas
+           |cb.on -> st.off -> cb.off -> FLOOR //Depart vers bas
+           |ch.on -> st.on -> ch.off -> FLOOR //Arrivé depuis haut
+           |ch.on -> st.off -> ch.off -> FLOOR //Depart vers haut
+        )
+        +{ch.CaptorIt,cb.CaptorIt,st.CaptorIt,floor.FloorEventIt}
+        /{
+            captorHautOn/ch.on,
+            captorHautOff/ch.off,
+            captorBasOn/cb.on,
+            captorBasOff/cb.off,
+            captorStopOn/st.on,
+            captorStopOff/st.off
+        }.
+
+        FLOORCALLS = (
+            bt.bip -> FLOORCALLS
+        )+{bt.ButtonIt}/{callTo/bt.bip}.
+
+        ||FLOOR = (FLOORCAPTORS || FLOORCALLS).
+}
+
+component CONTROLCENTER{
+    require:
+        floor1:FloorEventIt;
+        floor2:FloorEventIt;
+        floor3:FloorEventIt;
+        door:DoorControlIt;
+        motor:MotorControlIt;
+}
+
+component GLOBAL {
+    inst
+    //floor1 creation
+        floor1:FLOOR;
+        ch1:CAPTOR;
+        cb1:CAPTOR;
+        st1:CAPTOR;
+        bt1:BUTTON;
+    bind
+        floor1.ch -- ch1.captor;
+        floor1.cb -- cb1.captor;
+        floor1.st -- st1.captor;
+        floor1.bt -- bt1.captor;
+}
