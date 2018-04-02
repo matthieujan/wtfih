@@ -89,8 +89,40 @@ et donc devrait attirer l'attention. De plus, les mots de passe expirent après 
 - Voir 3.3
 
 ### 2.4 Compromission de l'Administrateur local
+#### Objectif
+
+Il est eventuellement possible, en analysant les GPO, de découvrir des informations intéréssantes, tel que
+des cpassword, le mot de passe admin local en "presque" clair. Ces informations sont stocké dans SYSVOL, et pour que l'on se connecte avec un utilisateur
+connu, tout le monde y a accès.
+
+#### Actions
+
+- Avec les creds de m.surik (mais ça aurait peut être marché avec testad), on va monter le volume SYSVOL.
+- Une fois ce volume monté, en fouillant dans Policies manuellement, on a trouvé le ficher contenant le cpassword.
+- En utilisant gpp-decrypt avec ce cpassword, on trouve le password admin local : SuPa_MDP_S1TH.
+
+#### Tools
+- mount smbfs (Simplement le montage d'un volume samba)
+- gpp-decrypt
+
+#### Recommendations
+
+- voir 3.4
 
 ### 2.5 Vol de Credentials via l'Admin local
+#### Objectif
+
+Grace à la récupération du compte Admin local, on peut maintenant fouiller avec des droits Administrateur 
+le contenu du poste client, notamment les espaces partagés et la mémoire, pour récuperer des creds.
+
+#### Actions
+
+On utilise crackmapexec -M mimikatz, qui va nous donner une liste de couple user/hash voir user/password.
+Dans cette liste ce trouve le couple d.traya/triumvirat, qui fonctionne.
+
+#### Tools
+
+crackmapexec -M mimikatz
 
 ### 2.6 Utilisation du compte helpdesk
 
@@ -102,4 +134,6 @@ et donc devrait attirer l'attention. De plus, les mots de passe expirent après 
 
 ### 3.2 Description avec des informations sensibles
 
-## 3.3 Politique de mot de passe
+### 3.3 Politique de mot de passe
+
+### 3.4 Group Policy Preference Vulnerability
