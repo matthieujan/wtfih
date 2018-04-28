@@ -124,16 +124,62 @@ Dans cette liste ce trouve le couple d.traya/triumvirat, qui fonctionne.
 
 crackmapexec -M mimikatz
 
+#### Recommendations
+
+- voir 3.5
+
 ### 2.6 Utilisation du compte helpdesk
+#### Objectif
+
+On souhaite ici étudier le compte d.traya, qui semble légerement différent du compte précedent, afin de voir
+ce qu'il est possible de faire avec.
+
+#### Actions
+
+On récupere, via Enum4Linux, les informations de groupes (qui est dans quel groupe). On voit rapidement que
+le compte d.traya est effectivement spécial, puisqu'il il appartient à un helpdesk, avec des droits particulier
+et des possibilités d'alterer d'autres compte.
+
+#### Tools
+
+- Enum4Linux
+
+#### Recommendations
+
+- voir 3.6
 
 ### 2.7 Ouverture
+On pourrait avec le compte helpdesk aller petit a petit compromettre les comptes de service SPN ou utiliser
+des exploits comme le kerberoasting. On peut egalement aller analyser un peu plus le domaine etc ...
 
 ## 3. Résultats de l'audit
 
 ### 3.1 Compte de test en prod
 
+Ne garder que ce qui sert. Les comptes de test (guest, test , toto ...), les services inutilisés, les comptes
+inactifs doivent être isolé/désactivé.
+
+Ici, bien que le compte k.ren est désactivé, le compte testad est encore en fonctionnement, et devrait etre désactivé.
+
 ### 3.2 Description avec des informations sensibles
+
+La grandes majorités des informations sont publiques sur l'AD, y compris les commentaires des utilisateurs.
+Ces informations étant publiques, il ne faut surtout pas les afficher. A peu près du même niveau que
+le fichier password.txt sur le bureau.
+
+Ici, on trouve les passwords de k.ren et m.surik dans les commentaires, qui devrait etre supprimés.
 
 ### 3.3 Politique de mot de passe
 
+Une politique de mot de passe solide doit pouvoir empecher le brutforce, forcer l'utilisation de password
+solide, forcer le renouvellement des mots de passes, le tout sans que l'utilisateur tente de contourner
+ou invalider ces mesures (post-it avec password).
+
+Ici, la politique de mot de passe à l'air correct pour les utilisateurs normaux, les comptes helpdesk n'ont
+pas la contrainte de renouvellement, ce qui peut poser des problèmes.
+
 ### 3.4 Group Policy Preference Vulnerability
+
+### 3.5 Se defendre contre Mimikatz
+
+### 3.6 Attribution de droits
